@@ -3,15 +3,11 @@ import sqlite3
 import sys
 
 DB_NAME = 'task_manager'
-IN_DEBUG_MODE = False
 DESCRIPTION = 'example description'
+IN_DEBUG_MODE = False
 
-def runQuery(outfilename, infile):
+def runQuery(outfilename: str, infile: str):
     query = infile.read()
-
-    if not isValid(query):
-        print('invalid query')
-        return
 
     if IN_DEBUG_MODE:
         print(query)
@@ -19,20 +15,20 @@ def runQuery(outfilename, infile):
     
     connection = sqlite3.connect(f'./{outfilename}')
     cursor = connection.cursor()
-    # cursor.execute(query)
-
-    connection.commit()
+    
+    try:
+        cursor.execute(query)
+        connection.commit()
+    except:
+        print("invalid query")
+        
     connection.close()
-
-
-def isValid(query):
-    return True
 
 
 def main():
     parser = argparse.ArgumentParser(
         prog=DB_NAME,
-        description=''
+        description=DESCRIPTION
     )
 
     parser.add_argument('-o', '--output_file')
