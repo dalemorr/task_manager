@@ -1,0 +1,8 @@
+# VSCode
+.vscode/*
+
+# Databases
+*.db
+
+# SQL Queries
+*.sql
